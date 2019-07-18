@@ -38,7 +38,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
         private TextView name;
         ViewHolder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.list_item_text);
+            name = itemView.findViewById(R.id.list_item_text);
         }
     }
 }

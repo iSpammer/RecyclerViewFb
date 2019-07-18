@@ -3,6 +3,7 @@ package ispam.markt17.recyclerviewfb;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -23,50 +25,36 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        new GetDataFromFirebase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
+        final ArrayList<String> arrayList = new ArrayList<>();
         // Read from the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Places");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Places");
+        arrayList.add("asd");
+        arrayList.add("asd");
+        arrayList.add("asd");
+        final RecyclerViewAdapter adapter = new RecyclerViewAdapter(arrayList);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ref.addValueEventListener(new ValueEventListener() {
 
-        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                /*for (DataSnapshot alert: dataSnapshot.getChildren()) {
-                    System.out.println(alert.getValue());
-                }*/
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                ArrayList<String> values = (ArrayList<String>) dataSnapshot.getValue();
-                recyclerView.setAdapter(new RecyclerViewAdapter(values));
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String key = ds.getKey();
+                    arrayList.add(key);
+                    adapter.notifyDataSetChanged();
+                    System.out.println(key+" aaaaaaaaaa");
+                    System.out.println(Arrays.toString(arrayList.toArray()));
+                }
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                System.out.println("Failed to read value." + error.toException());
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("ASD", "Failed to read value.", databaseError.toException());
+
             }
         });
-    }
-
-    private class GetDataFromFirebase extends AsyncTask<Void,Void,Boolean>{
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
-        }
     }
 }
