@@ -1,4 +1,4 @@
-package ispam.markt17.recyclerviewfb;
+package ispam.markt17.recyclerviewfbxd;
 
 import org.junit.Test;
 

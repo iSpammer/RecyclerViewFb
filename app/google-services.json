@@ -116,6 +116,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701104972808:android:a9ac64f1dd808e4d",
+        "android_client_info": {
+          "package_name": "ispam.markt17.recyclerviewfbxd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "701104972808-vfikv2qe77o4fs9vvj18cit9gdgkb27o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKMrLF-A9wdDZULPZA1MQrrRzIOLJbcBk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "701104972808-vfikv2qe77o4fs9vvj18cit9gdgkb27o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
